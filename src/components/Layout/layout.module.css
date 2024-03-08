@@ -1,3 +1,34 @@
+body::-webkit-scrollbar {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: black;
+}
+
+body::-webkit-scrollbar-button {
+    display: none;
+}
+
+body::-webkit-scrollbar-track-piece {
+    background: transparent;
+    border: 5px solid #545454;
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color:aqua;
+    border: 2px solid #545454;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: transparent;
+}
+
+body::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
 .slideButton {
     color: lightcyan;
     opacity: 1;

@@ -8,7 +8,14 @@ const MainLayout = ({children}) => {
     return (
         <>
             {smCheck ? <SlideMenu/> : <TopMenu/>}
-            <Box sx={{backgroundColor: '#070D19', minHeight: '100vh', paddingLeft: smCheck ? '120px' : '0'}}>
+            <Box sx={{
+                backgroundColor: '#070D19', 
+                minHeight: '100vh', 
+                paddingLeft: smCheck ? '100px' : '0',
+                paddingRight: smCheck ? '20px' : '0', 
+                paddingTop: '1rem', 
+                boxSizing: 'border-box'
+                }}>
                 {children}
             </Box>
         </>

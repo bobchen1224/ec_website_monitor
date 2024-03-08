@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
+import AdsMonitor from "./pages/AdsMonitor";
 
 const App = () => {
     return (
@@ -11,6 +12,14 @@ const App = () => {
                     element={
                         <MainLayout>
                             <Dashboard/>
+                        </MainLayout>
+                    }
+                />
+                <Route 
+                    path='/adsMonitor' 
+                    element={
+                        <MainLayout>
+                            <AdsMonitor/>
                         </MainLayout>
                     }
                 />

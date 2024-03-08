@@ -1,6 +1,7 @@
-import { ChevronLeft, ChevronRight, Dashboard } from "@mui/icons-material";
+import { AdsClick, ChevronLeft, ChevronRight, Dashboard } from "@mui/icons-material";
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -52,6 +53,7 @@ const DesignedDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'o
 );
 
 const SlideMenu = () => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleMenuOpen = () => {
         setOpen(prev => !prev);
@@ -87,11 +89,31 @@ const SlideMenu = () => {
                             },
                         }}
                     >
-                        <ListItemButton>
+                        <ListItemButton onClick={()=>{navigate('/')}}>
                             <ListItemIcon sx={{color: 'lightcyan'}}>
                                 <Dashboard/>
                             </ListItemIcon>
                             <ListItemText primary="營業狀態總覽"/>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem  
+                        disablePadding 
+                        sx={{ 
+                            display: 'block', 
+                            color: 'lightcyan',
+                            '&:hover': {
+                                color: 'aqua',
+                                "& .MuiListItemIcon-root": {
+                                    color: "aqua"
+                                }
+                            },
+                        }}
+                    >
+                        <ListItemButton onClick={()=>{navigate('/adsMonitor')}}>
+                            <ListItemIcon sx={{color: 'lightcyan'}}>
+                                <AdsClick/>
+                            </ListItemIcon>
+                            <ListItemText primary="廣告活動監控"/>
                         </ListItemButton>
                     </ListItem>
                 </List>
