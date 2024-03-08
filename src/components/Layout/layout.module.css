@@ -1,0 +1,9 @@
+.slideButton {
+    color: lightcyan;
+    opacity: 1;
+}
+
+.slideButton:hover {
+    color: aqua;
+    text-shadow: 0 0 0.3rem aqua;
+}
