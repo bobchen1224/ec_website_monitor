@@ -1,11 +1,13 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from "highcharts-react-official";
 
-const ChartsComponent = ({titleValue, seriesValue}) => {
+Highcharts.setOptions({ lang: { thousandsSep: ',' } });
+
+const TimeSeriesChart = ({heightValue, titleValue, seriesValue, yaxisValue, xOffsetValue}) => {
     const chartOptions = {
         chart: {
             zoomType: 'xy',
-            height: '260px',
+            height: heightValue,
             animation: true,
             backgroundColor: '#0C1427',
             borderRadius: 10,
@@ -38,6 +40,7 @@ const ChartsComponent = ({titleValue, seriesValue}) => {
                 color: 'lightcyan',
             },
             shared: true,
+            borderWidth: 1,
         },
 
         xAxis: [
@@ -49,47 +52,11 @@ const ChartsComponent = ({titleValue, seriesValue}) => {
                         color: 'lightcyan',
                     }
                 },
-                offset: 15,
+                offset: xOffsetValue,
             }
         ],
 
-        yAxis: [
-            {
-                title: {
-                    text: '訪客數',
-                    style: {
-                        color: '#aff'
-                    },
-                },                
-                labels: {
-                    format: '{value}',
-                    style: {
-                        color: '#aff',
-                    },
-                },
-                gridLineColor: 'darkslategrey',
-                gridLineDashStyle: 'longdash',
-            },
-            {
-                title: {
-                    text: '跳出率',
-                    style: {
-                        color: '#ffa'
-                    },
-                },
-                labels: {
-                    format: '{value} %',
-                    style: {
-                        color: '#ffa',
-                    },
-                },
-                gridLineColor: 'darkslategrey',
-                gridLineDashStyle: 'longdash',
-                min: 0,
-                max: 100,
-                opposite: true,
-            },
-        ],
+        yAxis: yaxisValue,
 
         time: {
             timezoneOffset: -8 * 60,
@@ -106,4 +73,4 @@ const ChartsComponent = ({titleValue, seriesValue}) => {
     )
 };
 
-export default ChartsComponent;
+export default TimeSeriesChart;
