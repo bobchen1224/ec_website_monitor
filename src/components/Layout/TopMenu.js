@@ -1,4 +1,4 @@
-import { Dashboard } from "@mui/icons-material";
+import { AdsClick, Dashboard } from "@mui/icons-material";
 import { AppBar, Button, Toolbar } from "@mui/material";
 import styles from './layout.module.css'
 
@@ -11,7 +11,14 @@ const TopMenu = () => {
                     className={styles.slideButton}
                     startIcon={<Dashboard/>}
                     >
-                    營業狀態總覽
+                    營運狀態總覽
+                </Button>
+                <Button
+                    variant='texted' 
+                    className={styles.slideButton}
+                    startIcon={<AdsClick/>}
+                    >
+                    廣告監控平台
                 </Button>
             </Toolbar>
         </AppBar>

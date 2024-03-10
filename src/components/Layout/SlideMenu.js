@@ -93,7 +93,7 @@ const SlideMenu = () => {
                             <ListItemIcon sx={{color: 'lightcyan'}}>
                                 <Dashboard/>
                             </ListItemIcon>
-                            <ListItemText primary="營業狀態總覽"/>
+                            <ListItemText primary="營運狀態總覽"/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem  

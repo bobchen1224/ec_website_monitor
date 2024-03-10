@@ -16,6 +16,14 @@ export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     )
 };
 
+export const ChartBox = ({children}) => {
+    return (
+        <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
+            {children}
+        </Box>
+    )
+}
+
 export const CyberpunkLoader = ({loading}) => {
     return (
         <Backdrop

@@ -1,8 +1,10 @@
 import { Box, Grid } from "@mui/material";
-import { CyberpunkLoader, MainDataBox } from "../../components/DesignedUI";
+import { ChartBox, CyberpunkLoader, MainDataBox } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
+import BarChart from "../../components/Charts/barChart";
+import GaugeChart from "../../components/Charts/gaugeCharts";
 
 const getMinutesList = () => {
     let tempList = [];
@@ -176,6 +178,20 @@ const Dashboard = () => {
         },
     ];
 
+    const sourceSeries = [
+        {
+            type: 'bar',
+            data: [
+                {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
+                {y: 13647, x: 2, name: 'Google Search', color: 'springgreen'},
+                {y: 10274, x: 3, name: 'Facebook', color: 'deepskyblue'},
+                {y: 9829, x: 4, name: 'Instagram', color: '#aaf'},
+                {y: 6731, x: 5, name: 'Youtube', color: 'tomato'},
+                {y: 4218, x: 6, name: 'Others', color: 'lightslategrey'},
+            ]
+        }
+    ];
+
     const getInitData = () => new Promise((resolve, reject) => {
         setTimeout(()=>{
             resolve(
@@ -211,6 +227,7 @@ const Dashboard = () => {
                 return prev;
             });
         }, 10 * 1000);
+
         return () => {
             clearInterval(fiveSecTimer);
             clearInterval(tenSecTimer);
@@ -261,7 +278,7 @@ const Dashboard = () => {
             <Grid item xs={12} md={6}>
                 <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
                     <TimeSeriesChart 
-                        heightValue='280px'
+                        heightValue='320px'
                         titleValue='進站流量與表現'
                         seriesValue={trafficSeries}
                         yaxisValue={trafficYaxis}
@@ -270,15 +287,48 @@ const Dashboard = () => {
                 </Box>
             </Grid>
             <Grid item xs={12} md={6}>
+                <ChartBox>
+                    <BarChart
+                        heightValue='320px'
+                        titleValue='流量來源'
+                        seriesValue={sourceSeries}
+                    />
+                </ChartBox>
+            </Grid>
+            <Grid item xs={12} md={6}>
                 <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
                     <TimeSeriesChart 
-                        heightValue='280px'
+                        heightValue='320px'
                         titleValue='各時段營收狀況'
                         seriesValue={salesSeries}
                         yaxisValue={salesYaxis}
                         xOffsetValue={0}
                     />
                 </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+                <ChartBox>
+                    <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <Box sx={{width: '50%', borderRadius: '10px'}}>
+                            <GaugeChart
+                                heightValue='320px'
+                                dataValue={98}
+                                titleValue='網站效能'
+                                valueColor='#afa'
+                                paneColor={['#43e97b', '#38f9d7']}
+                            />
+                        </Box>
+                        <Box sx={{width: '50%', borderRadius: '10px'}}>
+                            <GaugeChart
+                                heightValue='320px'
+                                dataValue={100}
+                                titleValue='SEO表現'
+                                valueColor='#aff'
+                                paneColor={['#4facfe', '#00f2fe']}
+                            />
+                        </Box>
+                    </Box>
+                </ChartBox>
             </Grid>
         </Grid>
     )

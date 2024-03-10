@@ -131,3 +131,13 @@
 .textLoad {
     font-family: 'Orbitron', arial, sans-serif;
 }
+
+@media (min-width: 900px) and (max-width: 1240px) {
+    .dataText{
+      font-size: x-large;
+    }
+
+    .dataTitle{
+      font-size: large;
+    }
+}
