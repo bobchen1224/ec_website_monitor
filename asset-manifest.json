@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ec_website_monior/static/css/main.0a7e451d.css",
+    "main.js": "/ec_website_monior/static/js/main.19ffe90e.js",
+    "static/js/453.8d9c5ed0.chunk.js": "/ec_website_monior/static/js/453.8d9c5ed0.chunk.js",
+    "index.html": "/ec_website_monior/index.html",
+    "main.0a7e451d.css.map": "/ec_website_monior/static/css/main.0a7e451d.css.map",
+    "main.19ffe90e.js.map": "/ec_website_monior/static/js/main.19ffe90e.js.map",
+    "453.8d9c5ed0.chunk.js.map": "/ec_website_monior/static/js/453.8d9c5ed0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a7e451d.css",
+    "static/js/main.19ffe90e.js"
+  ]
+}
