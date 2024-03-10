@@ -238,7 +238,7 @@ const Dashboard = () => {
 
     return (
         <Grid container spacing={1}>
-            <CyberpunkLoader loading={false}/>
+            <CyberpunkLoader loading={loading}/>
             <Grid item xs={12} md={6} lg={3}>
                 <MainDataBox
                     title='今日累計營收'
