@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { ChartBox, CyberpunkLoader, MainDataBox } from "../../components/DesignedUI";
+import { CyberpunkLoader, GeneralContentBox, MainDataBox } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
@@ -12,7 +12,7 @@ const getMinutesList = () => {
         tempList[i] = {
             timeTicks: moment().startOf('seconds').valueOf() + (i * 1000),
             traffic: Math.floor(Math.random() * 50) + 120,
-            bounceRate: Math.floor(Math.random() * 10) + 10,
+            bounceRate: Math.floor(Math.random() * 20) + 10,
         };
     };
     return tempList;
@@ -37,10 +37,13 @@ const Dashboard = () => {
             totalVisitors: 0,
             totalAddToCarts: 0,
             totalConversions: 0,
+            sitePerformance: 0,
+            siteSEO: 0,
         }
     );
     const [trafficData, setTrafficData] = useState([]);
     const [salesData, setSalesData] = useState([]);
+    const [sourceData, setSourceData] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const trafficSeries = [
@@ -102,11 +105,12 @@ const Dashboard = () => {
                     color: '#ffa',
                 },
             },
-            gridLineColor: 'darkslategrey',
-            gridLineDashStyle: 'longdash',
+            gridLineColor: 'transparent',
+            base: 0,
             min: 0,
             max: 100,
             opposite: true,
+            endOnTick: false,
         },
     ];
 
@@ -181,14 +185,7 @@ const Dashboard = () => {
     const sourceSeries = [
         {
             type: 'bar',
-            data: [
-                {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
-                {y: 13647, x: 2, name: 'Google Search', color: 'springgreen'},
-                {y: 10274, x: 3, name: 'Facebook', color: 'deepskyblue'},
-                {y: 9829, x: 4, name: 'Instagram', color: '#aaf'},
-                {y: 6731, x: 5, name: 'Youtube', color: 'tomato'},
-                {y: 4218, x: 6, name: 'Others', color: 'lightslategrey'},
-            ]
+            data: sourceData,
         }
     ];
 
@@ -201,10 +198,20 @@ const Dashboard = () => {
                     totalSales: 5137624,
                     totalVisitors: 68511,
                     totalAddToCarts: 13763,
-                    totalConversions: 3425, 
+                    totalConversions: 3425,
+                    sitePerformance: 98,
+                    siteSEO: 100, 
                 }),
-            )
-        }, 3000)
+                setSourceData([
+                    {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
+                    {y: 13647, x: 2, name: 'Google Search', color: 'springgreen'},
+                    {y: 10274, x: 3, name: 'Facebook', color: 'deepskyblue'},
+                    {y: 9829, x: 4, name: 'Instagram', color: '#aaf'},
+                    {y: 6731, x: 5, name: 'Youtube', color: 'tomato'},
+                    {y: 4218, x: 6, name: 'Others', color: 'lightslategrey'},
+                ])
+            );
+        }, 2000);
     });
 
     useEffect(()=>{
@@ -287,13 +294,13 @@ const Dashboard = () => {
                 </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-                <ChartBox>
+                <GeneralContentBox>
                     <BarChart
                         heightValue='320px'
                         titleValue='流量來源'
                         seriesValue={sourceSeries}
                     />
-                </ChartBox>
+                </GeneralContentBox>
             </Grid>
             <Grid item xs={12} md={6}>
                 <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
@@ -307,12 +314,12 @@ const Dashboard = () => {
                 </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-                <ChartBox>
+                <GeneralContentBox>
                     <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <Box sx={{width: '50%', borderRadius: '10px'}}>
                             <GaugeChart
                                 heightValue='320px'
-                                dataValue={98}
+                                dataValue={totalData.sitePerformance}
                                 titleValue='網站效能'
                                 valueColor='#afa'
                                 paneColor={['#43e97b', '#38f9d7']}
@@ -321,14 +328,14 @@ const Dashboard = () => {
                         <Box sx={{width: '50%', borderRadius: '10px'}}>
                             <GaugeChart
                                 heightValue='320px'
-                                dataValue={100}
+                                dataValue={totalData.siteSEO}
                                 titleValue='SEO表現'
                                 valueColor='#aff'
                                 paneColor={['#4facfe', '#00f2fe']}
                             />
                         </Box>
                     </Box>
-                </ChartBox>
+                </GeneralContentBox>
             </Grid>
         </Grid>
     )

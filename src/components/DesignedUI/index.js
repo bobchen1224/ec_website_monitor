@@ -1,5 +1,43 @@
-import { Backdrop, Box } from "@mui/material";
+import { Backdrop, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import styles from './designedUI.module.css';
+
+const mainHeadSx = {
+    color: 'lightyellow', 
+    textShadow: '0 0 0.2rem orange', 
+    borderBottom: '1px solid aqua', 
+    borderRight: '1px solid aqua', 
+    background: 'black', 
+    fontSize: '1.2rem', 
+    fontWeight: 'bolder'
+};
+
+const mainHeadSxLast = {
+    color: 'lightyellow', 
+    textShadow: '0 0 0.2rem orange', 
+    borderBottom: '1px solid aqua', 
+    borderRight: '0px', 
+    background: 'black', 
+    fontSize: '1.2rem', 
+    fontWeight: 'bolder'
+};
+
+const subHeadSx = {
+    color: 'aquamarine', 
+    borderBottom: '1px solid aqua', 
+    borderRight: '1px solid aqua', 
+    background: '#111111', 
+    fontSize: '0.9rem', 
+    fontWeight: 'bolder',
+};
+
+const subHeadSxLast = {
+    color: 'aquamarine', 
+    borderBottom: '1px solid aqua', 
+    borderRight: '0px', 
+    background: '#111111', 
+    fontSize: '0.9rem', 
+    fontWeight: 'bolder',
+};
 
 export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     return (
@@ -16,13 +54,71 @@ export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     )
 };
 
-export const ChartBox = ({children}) => {
+export const GeneralContentBox = ({children}) => {
     return (
         <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
             {children}
         </Box>
     )
 }
+
+export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, DataRows}) => {
+    return (
+        <TableContainer
+            sx={{maxHeight: maxHeightValue}} 
+            className={styles.tableContainerStyle}
+        >
+            <Table
+                aria-label="collapsible table" 
+                stickyHeader={true} 
+                sx={{minWidth: minWidthValue}}
+            >
+                <TableHead>
+                    { 
+                        headerList.map((v)=>{
+                            return (
+                                <TableRow key={v.level}>
+                                    {v.items.map((s, sIndex)=>{
+                                        return (
+                                            <TableCell 
+                                                align="center" 
+                                                key={s.name} 
+                                                colSpan={v.level === 'main' ? s.column : 1}
+                                                sx={
+                                                    v.level === 'main' ? 
+                                                    (sIndex === v.items.length-1 ? mainHeadSxLast : mainHeadSx) 
+                                                    : 
+                                                    (sIndex === v.items.length-1 ? subHeadSxLast : subHeadSx)
+                                                }
+                                                >
+                                                {s.name}
+                                            </TableCell>
+                                        )
+                                    })}
+                                </TableRow>
+                            )
+                        })
+                    }
+                </TableHead>
+                <TableBody>
+                    {bodyData.length > 0 ? 
+                        bodyData.map((v,i)=>{
+                            return (
+                                <DataRows
+                                    key={v.name}
+                                    data={v}
+                                    bIndex={i}
+                                />
+                            )
+                        }) 
+                        :
+                        <></>
+                        }
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
+};
 
 export const CyberpunkLoader = ({loading}) => {
     return (
