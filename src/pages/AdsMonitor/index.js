@@ -11,7 +11,7 @@ const getAdsList = () => {
         tempList[i] = {
             name: `${Math.random().toString(36).substring(2,7)} - ${i % 3 === 0 ? '新品曝光' : '檔期促銷'}`,
             type: adsTypeCheck(Math.floor(Math.random()*6)+1),
-            budget: Math.floor(Math.random()*30000/100)*100,
+            budget: Math.floor(Math.random()*30000/100)*100 + 1000,
             clicks: Math.floor(Math.random()*3000),
             impression: Math.floor(Math.random()*20000) + 3000,
             clickRate: null,
