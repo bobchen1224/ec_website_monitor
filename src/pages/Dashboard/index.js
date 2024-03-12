@@ -10,7 +10,7 @@ const getMinutesList = () => {
     let tempList = [];
     for(let i = 0; i < 60; i++) {
         tempList[i] = {
-            timeTicks: moment().startOf('seconds').valueOf() + (i * 1000),
+            timeTicks: (moment().startOf('seconds').valueOf() - 60000) + (i * 1000),
             traffic: Math.floor(Math.random() * 50) + 120,
             bounceRate: Math.floor(Math.random() * 20) + 10,
         };
