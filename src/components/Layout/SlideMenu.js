@@ -66,6 +66,7 @@ const SlideMenu = () => {
             PaperProps={{
                 sx: {
                   backgroundColor: "#0E2545",
+                  zIndex: 1040,
                 }
             }}
             >

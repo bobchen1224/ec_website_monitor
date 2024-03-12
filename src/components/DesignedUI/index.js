@@ -1,4 +1,4 @@
-import { Backdrop, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from "@mui/material";
+import { Backdrop, Box, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, styled } from "@mui/material";
 import styles from './designedUI.module.css';
 
 const mainHeadSx = {
@@ -54,6 +54,38 @@ const tableSortSx = {
     },
 }
 
+export const DesignedFormInput = styled(TextField)({
+    '& label': {
+        color: 'lightcyan',
+        '&.Mui-focused': {
+            color: 'lightyellow',
+        },
+    },
+    '& input':{
+        color: 'lightyellow',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'lightcyan',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'aqua',
+        },
+        '&:hover fieldset': {
+            borderColor: 'gold',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'gold',
+        },
+    },
+    "& .MuiSvgIcon-root": {
+        color: "lightcyan",
+    },
+    "& .MuiOutlinedInput-input": {
+        color: 'lightyellow',
+    },
+});
+
 export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     return (
         <Box sx={{backgroundColor: '#0C1427', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
@@ -77,7 +109,7 @@ export const GeneralContentBox = ({children}) => {
     )
 }
 
-export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, setBodyData, DataRows, dataDirection, setDataDirection}) => {
+export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, setBodyData, DataRows, dataDirection, setDataDirection, handleOpenPop}) => {
 
     const handleDirectionChange = (setData, formerDirection, sortLabel) => {
         if(formerDirection.type === 'asc') {
@@ -148,6 +180,7 @@ export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyDa
                                 <DataRows
                                     key={v.name}
                                     data={v}
+                                    openPop={handleOpenPop}
                                 />
                             )
                         }) 
@@ -159,6 +192,28 @@ export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyDa
         </TableContainer>
     );
 };
+
+export const PopupDialogue = ({title, content, actions, openDiag, handleClose}) => {
+    return (
+        <Dialog
+            open={openDiag}
+            onClose={handleClose}
+            sx={{zIndex: 1050}}
+        >
+            <Box sx={{background: '#333333', border: '3px solid aqua', borderRadius: '5px'}}>
+                <DialogTitle sx={{color: 'lightcyan', textShadow: '0 0 0.2rem aqua', fontWeight: 'bold'}}>
+                    {title}
+                </DialogTitle>
+                <DialogContent>
+                    {content}
+                </DialogContent>
+                <DialogActions>
+                    {actions}
+                </DialogActions>
+            </Box>
+        </Dialog>
+    )
+}
 
 export const CyberpunkLoader = ({loading}) => {
     return (

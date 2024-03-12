@@ -1,8 +1,9 @@
-import { Box, Card, IconButton, TableCell, TableRow } from "@mui/material";
-import { CyberpunkLoader, DesignedTable } from "../../components/DesignedUI";
+import { Box, Button, Card, IconButton, InputAdornment, TableCell, TableRow } from "@mui/material";
+import { CyberpunkLoader, DesignedFormInput, DesignedTable, PopupDialogue } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
 import { adsTypeCheck } from "../../utils/constant";
 import { Edit } from "@mui/icons-material";
+import Swal from "sweetalert2";
 
 const getAdsList = () => {
     let tempList = [];
@@ -47,7 +48,7 @@ const bodySxLast = {
     textAlign: 'center',
 }
 
-const AdsDataRows = ({length, data}) => {
+const AdsDataRows = ({openPop, data}) => {
     return (
         <TableRow key={data.name}>
             <TableCell align="center" sx={bodySx}>
@@ -60,6 +61,7 @@ const AdsDataRows = ({length, data}) => {
                 {Number(data.budget).toLocaleString()}
                 <IconButton 
                     sx={{paddingY: '0.3rem'}}
+                    onClick={()=>{openPop(data.budget, data.name)}}
                     >
                     <Edit sx={{fontSize: 16, color: 'aqua'}}/>
                 </IconButton>
@@ -97,6 +99,9 @@ const AdsMonitor = () => {
             type: 'desc'
         }
     );
+    const [openDialog, setOpenDialog] = useState(false);
+    const [budgetModify, setBudgetModify] = useState(0);
+    const [selectCampaign, setSelectCampaign] = useState('');
     const [loading, setLoading] = useState(false);
     const tableHeaderList = [
         {
@@ -176,8 +181,75 @@ const AdsMonitor = () => {
         }
     ];
 
+    const getAdsData = () => new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            resolve(setAdsCampaign(getAdsList()));
+        },1500)
+    });
+
+    const handleDiagOpen = (budgetValue, campaignName) => {
+        setOpenDialog(true);
+        setBudgetModify(budgetValue);
+        setSelectCampaign(campaignName);
+    };
+
+    const handleDiagClose = () => {
+        setOpenDialog(false);
+        setBudgetModify(0);
+    };
+
+    const handleBudgetChange = (event) => {
+        setBudgetModify(event.target.value);
+    };
+
+    const saveBudget = (adsList, cpName, budgetData) => {
+        const selectCpIndex = adsList.findIndex(f=>f.name===cpName);
+        Swal.fire({
+            icon: 'question',
+            title: '確認修改預算？',
+            text: `將從「${adsList[selectCpIndex].budget}」調整為「${budgetData}」`,
+            showConfirmButton: true,
+            confirmButtonText: '確認',
+            showCancelButton: true,
+            cancelButtonText: '取消',
+        }).then((result)=>{
+            if(result.isConfirmed) {
+                Swal.fire({
+                    title: '資料上傳中…請稍候',
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                    allowOutsideClick: false,
+                });
+
+                setTimeout(()=>{
+                    const newDataList = structuredClone(adsList).with(selectCpIndex,
+                        {
+                            ...adsList[selectCpIndex],
+                            budget: budgetData,
+                        }
+                    );
+                    setAdsCampaign(newDataList);
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '預算更新成功！',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    setOpenDialog(false);
+                },1500);
+
+            } else {
+                setOpenDialog(false);
+            };
+        });
+    };
+
     useEffect(()=>{
-        setAdsCampaign(getAdsList());
+        setLoading(true);
+        Promise.resolve(getAdsData()).finally(()=>{setLoading(false)});
     },[])
 
     return (
@@ -193,8 +265,54 @@ const AdsMonitor = () => {
                     DataRows={AdsDataRows}
                     dataDirection={tableDirection}
                     setDataDirection={setTableDirection}
+                    handleOpenPop={handleDiagOpen}
                     />
             </Card>
+            <PopupDialogue
+                title='廣告活動預算調整'
+                content={
+                    <DesignedFormInput
+                        autoComplete='off'
+                        fullWidth
+                        label='請輸入預算金額'
+                        size='small'
+                        inputMode='numeric'
+                        type='text'
+                        value={budgetModify}
+                        onChange={handleBudgetChange}
+                        sx={{marginY: '0.7rem', background: '#222222'}}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <p style={{color: 'lightcyan'}}>{'NTD $'}</p>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+                }
+                actions={
+                    <Button
+                        sx={{
+                            backgroundColor: 'tomato', 
+                            border: '1px solid white', 
+                            color: 'white', 
+                            textShadow: '0 0 0.5rem black', 
+                            boxShadow: '0 0 0.5rem tomato',
+                            '&:hover': {
+                                backgroundColor: 'darkred',
+                                fontWeight: 'bold',
+                            }
+                        }}
+                        onClick={()=>{
+                            saveBudget(adsCampaign, selectCampaign, budgetModify)
+                        }}
+                    >
+                        儲存
+                    </Button>
+                }
+                openDiag={openDialog}
+                handleClose={handleDiagClose}
+            />
         </Box>
     );
 };
