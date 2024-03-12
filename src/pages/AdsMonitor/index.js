@@ -1,7 +1,8 @@
-import { Box, Card, TableCell, TableRow } from "@mui/material";
+import { Box, Card, IconButton, TableCell, TableRow } from "@mui/material";
 import { CyberpunkLoader, DesignedTable } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
 import { adsTypeCheck } from "../../utils/constant";
+import { Edit } from "@mui/icons-material";
 
 const getAdsList = () => {
     let tempList = [];
@@ -9,7 +10,7 @@ const getAdsList = () => {
         tempList[i] = {
             name: `${Math.random().toString(36).substring(2,7)} - ${i % 3 === 0 ? '新品曝光' : '檔期促銷'}`,
             type: adsTypeCheck(Math.floor(Math.random()*6)+1),
-            budegt: Math.floor(Math.random()*30000/1000)*1000,
+            budget: Math.floor(Math.random()*30000/100)*100,
             clicks: Math.floor(Math.random()*3000),
             impression: Math.floor(Math.random()*20000) + 3000,
             clickRate: null,
@@ -21,10 +22,10 @@ const getAdsList = () => {
     };
     tempList = tempList.map((v)=>{
         v.clickRate = Math.floor((v.clicks / v.impression) * 100);
-        v.costs = v.budegt * 0.6;
-        v.roas = Math.round(v.conversionsValue / (v.budegt * 0.6));
+        v.costs = v.budget * 0.6;
+        v.roas = Math.round(v.conversionsValue / (v.budget * 0.6));
         return v;
-    })
+    }).sort((a,b)=>b.budget - a.budget);
     return tempList;
 };
 
@@ -46,7 +47,7 @@ const bodySxLast = {
     textAlign: 'center',
 }
 
-const AdsDataRows = ({length, data, bIndex}) => {
+const AdsDataRows = ({length, data}) => {
     return (
         <TableRow key={data.name}>
             <TableCell align="center" sx={bodySx}>
@@ -56,7 +57,12 @@ const AdsDataRows = ({length, data, bIndex}) => {
                 {data.type}
             </TableCell>
             <TableCell align="center" sx={bodySx}>
-                {Number(data.budegt).toLocaleString()}
+                {Number(data.budget).toLocaleString()}
+                <IconButton 
+                    sx={{paddingY: '0.3rem'}}
+                    >
+                    <Edit sx={{fontSize: 16, color: 'aqua'}}/>
+                </IconButton>
             </TableCell>
             <TableCell align="center" sx={bodySx}>
                 {Number(data.clicks).toLocaleString()}
@@ -85,6 +91,12 @@ const AdsDataRows = ({length, data, bIndex}) => {
 
 const AdsMonitor = () => {
     const [adsCampaign, setAdsCampaign] = useState([]);
+    const [tableDirection, setTableDirection] = useState(
+        {
+            label: 'budget',
+            type: 'desc'
+        }
+    );
     const [loading, setLoading] = useState(false);
     const tableHeaderList = [
         {
@@ -92,14 +104,17 @@ const AdsMonitor = () => {
             items: [
                 {
                     name: '廣告活動',
+                    label: 'campaign',
                     column: 3
                 },
                 {
                     name: '流量表現',
+                    label: 'trafficPerformance',
                     column: 4
                 },
                 {
                     name: '轉換表現',
+                    label: 'conversionPerformance',
                     column: 3
                 }
             ]
@@ -109,42 +124,52 @@ const AdsMonitor = () => {
             items: [
                 {   
                     name: '名稱',
+                    label: 'name',
                     column: 1,
                 },
                 {
                     name: '類型',
+                    label: 'type',
                     column: 1,
                 },
                 {
                     name: '預算',
+                    label: 'budget',
                     column: 1,
                 },
                 {
                     name: '點擊',
+                    label: 'clicks',
                     column: 1,
                 }, 
                 {
                     name: '曝光',
+                    label: 'impression',
                     column: 1,
                 },
                 {
                     name: '點閱率',
+                    label: 'clickRate',
                     column: 1,
                 },
                 {
                     name: '已花費',
+                    label: 'costs',
                     column: 1,
                 },
                 {
                     name: '轉換',
+                    label: 'conversions',
                     column: 1,
                 },
                 {
                     name: '轉換價值',
+                    label: 'conversionsValue',
                     column: 1,
                 },
                 {
                     name: 'ROAS',
+                    label: 'roas',
                     column: 1,
                 }
             ]
@@ -164,7 +189,10 @@ const AdsMonitor = () => {
                     minWidthValue={1280}
                     headerList={tableHeaderList}
                     bodyData={adsCampaign}
+                    setBodyData={setAdsCampaign}
                     DataRows={AdsDataRows}
+                    dataDirection={tableDirection}
+                    setDataDirection={setTableDirection}
                     />
             </Card>
         </Box>

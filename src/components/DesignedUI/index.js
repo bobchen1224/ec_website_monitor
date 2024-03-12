@@ -1,4 +1,4 @@
-import { Backdrop, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Backdrop, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import styles from './designedUI.module.css';
 
 const mainHeadSx = {
@@ -39,6 +39,21 @@ const subHeadSxLast = {
     fontWeight: 'bolder',
 };
 
+const tableSortSx = {
+    '&.MuiTableSortLabel-root': {
+        color: 'aquamarine',
+    },
+    '&.MuiTableSortLabel-root:hover': {
+        color: 'pink',
+    },
+    '&.Mui-active': {
+        color: 'pink',
+    },
+    '& .MuiTableSortLabel-icon': {
+        color: 'pink !important',
+    },
+}
+
 export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     return (
         <Box sx={{backgroundColor: '#0C1427', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
@@ -62,7 +77,20 @@ export const GeneralContentBox = ({children}) => {
     )
 }
 
-export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, DataRows}) => {
+export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, setBodyData, DataRows, dataDirection, setDataDirection}) => {
+
+    const handleDirectionChange = (setData, formerDirection, sortLabel) => {
+        if(formerDirection.type === 'asc') {
+            setData(prev=>[...prev].sort((a,b)=> b[sortLabel] - a[sortLabel]));
+        } else {
+            setData(prev=>[...prev].sort((a,b)=> a[sortLabel] - b[sortLabel]));
+        };
+        setDataDirection(prev => ({
+            label: sortLabel,
+            type: prev.type === 'asc' ? 'desc' : 'asc',
+        }));
+    };
+
     return (
         <TableContainer
             sx={{maxHeight: maxHeightValue}} 
@@ -91,7 +119,20 @@ export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyDa
                                                     (sIndex === v.items.length-1 ? subHeadSxLast : subHeadSx)
                                                 }
                                                 >
-                                                {s.name}
+                                                {v.level === 'main' ? 
+                                                    `${s.name}`
+                                                    :
+                                                    <TableSortLabel
+                                                        active={dataDirection.label === s.label}
+                                                        direction={dataDirection.type}
+                                                        sx={tableSortSx}
+                                                        onClick={()=>{
+                                                            handleDirectionChange(setBodyData, dataDirection, s.label)
+                                                        }}
+                                                    >
+                                                        {`${s.name}`}
+                                                    </TableSortLabel>
+                                                }
                                             </TableCell>
                                         )
                                     })}
@@ -107,7 +148,6 @@ export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyDa
                                 <DataRows
                                     key={v.name}
                                     data={v}
-                                    bIndex={i}
                                 />
                             )
                         }) 
