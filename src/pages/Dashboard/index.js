@@ -20,11 +20,12 @@ const getMinutesList = () => {
 
 const getHourList = () => {
     let tempList = [];
+    const nowHourCheck = moment().startOf('hours').hours();
     for(let i = 0; i < 24; i++) {
         tempList[i] = {
             timeTicks: moment().startOf('day').valueOf() + (i * 60 * 60 * 1000),
-            sales: moment().startOf('hours').hours() > i ? Math.floor(Math.random() * 50000) + 300000 : null,
-            perSale: moment().startOf('hours').hours() > i ? Math.floor(Math.random() * 600) + 1200 : null,
+            sales: nowHourCheck > i ? Math.floor(Math.random() * 50000) + Math.round(5000000/nowHourCheck) : null,
+            perSale: nowHourCheck > i ? Math.floor(Math.random() * 600) + 1200 : null,
         };
     }
     return tempList

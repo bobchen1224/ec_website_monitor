@@ -31,7 +31,7 @@ const getAdsList = () => {
 };
 
 const bodySx = {
-    padding: '0.5rem',
+    padding: '1rem 0.5rem',
     color: 'lightcyan', 
     background: '#222222', 
     borderBottom: '1px solid darkslategrey',
@@ -257,7 +257,7 @@ const AdsMonitor = () => {
             <Card sx={{border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px'}}>
                 <CyberpunkLoader loading={loading}/>
                 <DesignedTable 
-                    maxHeightValue={720}
+                    maxHeightValue={820}
                     minWidthValue={1280}
                     headerList={tableHeaderList}
                     bodyData={adsCampaign}
