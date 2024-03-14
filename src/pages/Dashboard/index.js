@@ -217,9 +217,8 @@ const Dashboard = () => {
 
     useEffect(()=>{
         setLoading(true);
-        Promise.resolve(getInitData())
-        .finally(()=>{
-            setLoading(false)
+        getInitData().finally(()=>{
+            setLoading(false);
         });
 
         const fiveSecTimer = setInterval(()=>{

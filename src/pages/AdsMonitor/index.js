@@ -37,7 +37,7 @@ const bodySx = {
     borderBottom: '1px solid darkslategrey',
     borderRight: '1px solid darkslategrey',
     textAlign: 'center',
-}
+};
 
 const bodySxLast = {
     padding: '0.5rem',
@@ -46,7 +46,7 @@ const bodySxLast = {
     borderBottom: '1px solid darkslategrey',
     borderRight: '0px',
     textAlign: 'center',
-}
+};
 
 const AdsDataRows = ({openPop, data}) => {
     return (
@@ -249,7 +249,7 @@ const AdsMonitor = () => {
 
     useEffect(()=>{
         setLoading(true);
-        Promise.resolve(getAdsData()).finally(()=>{setLoading(false)});
+        getAdsData().finally(()=>{setLoading(false);});
     },[])
 
     return (
