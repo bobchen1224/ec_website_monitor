@@ -203,7 +203,7 @@ const AdsMonitor = () => {
     };
 
     const saveBudget = (adsList, cpName, budgetData) => {
-        const selectCpIndex = adsList.findIndex(f=>f.name===cpName);
+        const selectCpIndex = adsList.findIndex(f => f.name === cpName);
         Swal.fire({
             icon: 'question',
             title: '確認修改預算？',
@@ -224,13 +224,14 @@ const AdsMonitor = () => {
                 });
 
                 setTimeout(()=>{
-                    const newDataList = structuredClone(adsList).with(selectCpIndex,
+                    const newDataList = structuredClone(adsList);
+                    const dataFix = newDataList.with(selectCpIndex,
                         {
-                            ...adsList[selectCpIndex],
+                            ...newDataList[selectCpIndex],
                             budget: budgetData,
                         }
                     );
-                    setAdsCampaign(newDataList);
+                    setAdsCampaign(dataFix);
                     Swal.close();
                     Swal.fire({
                         icon: 'success',
@@ -249,8 +250,11 @@ const AdsMonitor = () => {
 
     useEffect(()=>{
         setLoading(true);
-        getAdsData().finally(()=>{setLoading(false);});
-    },[])
+        getAdsData()
+        .finally(()=>{
+            setLoading(false);
+        });
+    },[]);
 
     return (
         <Box sx={{boxSizing: 'border-box', paddingY: '0rem'}}>
