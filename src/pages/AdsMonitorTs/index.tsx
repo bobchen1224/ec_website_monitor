@@ -261,15 +261,14 @@ const AdsMonitorTs = () => {
                 });
 
                 setTimeout(()=>{
-                    let newDataList = structuredClone(adsList)
-                    // const dataListFix = newDataList.with(selectCpIndex,
-                    //     {
-                    //         ...newDataList[selectCpIndex],
-                    //         budget: budgetData,
-                    //     }
-                    // );
-                    newDataList[selectCpIndex] = {...newDataList[selectCpIndex], budget: budgetData};
-                    setAdsCampaign(newDataList);
+                    const newDataList = structuredClone(adsList);
+                    const dataListFix = newDataList.with(selectCpIndex,
+                        {
+                            ...newDataList[selectCpIndex],
+                            budget: budgetData,
+                        }
+                    );
+                    setAdsCampaign(dataListFix);
                     Swal.close();
                     Swal.fire({
                         icon: 'success',
