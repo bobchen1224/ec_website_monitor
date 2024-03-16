@@ -12,6 +12,7 @@ export const adsTypeCheck = (type) => {
             return 'Instagram Ads';
         case 6:
             return 'Youtube Ads';
-        default:
+        default: 
+            return '';
     };
 };
