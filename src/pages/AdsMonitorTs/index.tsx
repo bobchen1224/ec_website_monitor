@@ -57,6 +57,84 @@ const bodySxLast = {
     textAlign: 'center',
 };
 
+const tableHeaderList: TableHeaderParams = [
+    {
+        level: 'main',
+        items: [
+            {
+                name: '廣告活動',
+                label: 'campaign',
+                column: 3
+            },
+            {
+                name: '流量表現',
+                label: 'trafficPerformance',
+                column: 4
+            },
+            {
+                name: '轉換表現',
+                label: 'conversionPerformance',
+                column: 3
+            }
+        ]
+    },
+    {
+        level: 'sub',
+        items: [
+            {   
+                name: '名稱',
+                label: 'name',
+                column: 1,
+            },
+            {
+                name: '類型',
+                label: 'type',
+                column: 1,
+            },
+            {
+                name: '預算',
+                label: 'budget',
+                column: 1,
+            },
+            {
+                name: '點擊',
+                label: 'clicks',
+                column: 1,
+            }, 
+            {
+                name: '曝光',
+                label: 'impression',
+                column: 1,
+            },
+            {
+                name: '點閱率',
+                label: 'clickRate',
+                column: 1,
+            },
+            {
+                name: '已花費',
+                label: 'costs',
+                column: 1,
+            },
+            {
+                name: '轉換',
+                label: 'conversions',
+                column: 1,
+            },
+            {
+                name: '轉換價值',
+                label: 'conversionsValue',
+                column: 1,
+            },
+            {
+                name: 'ROAS',
+                label: 'roas',
+                column: 1,
+            }
+        ]
+    }
+];
+
 const getAdsList = () => {
     let tempList: TempAdsList = []
     for(let i = 0; i < 15; i++) {
@@ -139,84 +217,6 @@ const AdsMonitorTs = () => {
     const [budgetModify, setBudgetModify] = useState<number>(0);
     const [selectCampaign, setSelectCampaign] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-
-    const tableHeaderList: TableHeaderParams = [
-        {
-            level: 'main',
-            items: [
-                {
-                    name: '廣告活動',
-                    label: 'campaign',
-                    column: 3
-                },
-                {
-                    name: '流量表現',
-                    label: 'trafficPerformance',
-                    column: 4
-                },
-                {
-                    name: '轉換表現',
-                    label: 'conversionPerformance',
-                    column: 3
-                }
-            ]
-        },
-        {
-            level: 'sub',
-            items: [
-                {   
-                    name: '名稱',
-                    label: 'name',
-                    column: 1,
-                },
-                {
-                    name: '類型',
-                    label: 'type',
-                    column: 1,
-                },
-                {
-                    name: '預算',
-                    label: 'budget',
-                    column: 1,
-                },
-                {
-                    name: '點擊',
-                    label: 'clicks',
-                    column: 1,
-                }, 
-                {
-                    name: '曝光',
-                    label: 'impression',
-                    column: 1,
-                },
-                {
-                    name: '點閱率',
-                    label: 'clickRate',
-                    column: 1,
-                },
-                {
-                    name: '已花費',
-                    label: 'costs',
-                    column: 1,
-                },
-                {
-                    name: '轉換',
-                    label: 'conversions',
-                    column: 1,
-                },
-                {
-                    name: '轉換價值',
-                    label: 'conversionsValue',
-                    column: 1,
-                },
-                {
-                    name: 'ROAS',
-                    label: 'roas',
-                    column: 1,
-                }
-            ]
-        }
-    ];
 
     const getAdsData = () => new Promise ((resolve, reject) => {
         setTimeout(()=>{
