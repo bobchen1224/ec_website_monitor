@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Highcharts from 'highcharts';
 import HighchartsReact from "highcharts-react-official";
@@ -135,4 +136,4 @@ const GaugeChart = ({heightValue, dataValue, titleValue, paneColor, valueColor})
     )
 };
 
-export default GaugeChart;
+export default React.memo(GaugeChart);

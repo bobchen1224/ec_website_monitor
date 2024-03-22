@@ -1,3 +1,4 @@
+import React from "react";
 import { Backdrop, Box, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, styled } from "@mui/material";
 import styles from './designedUI.module.css';
 
@@ -86,7 +87,7 @@ export const DesignedFormInput = styled(TextField)({
     },
 });
 
-export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
+export const MainDataBox = React.memo(({title, data, dataColor, startUnit, endUnit}) => {
     return (
         <Box sx={{backgroundColor: '#0C1427', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
             <h2 className={styles.dataTitle}>
@@ -99,15 +100,15 @@ export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
             </Box>
         </Box>
     )
-};
+});
 
-export const GeneralContentBox = ({children}) => {
+export const GeneralContentBox = React.memo(({children}) => {
     return (
         <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
             {children}
         </Box>
     )
-}
+});
 
 export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, setBodyData, DataRows, dataDirection, setDataDirection, handleOpenPop}) => {
 
@@ -213,7 +214,7 @@ export const PopupDialogue = ({title, content, actions, openDiag, handleClose}) 
             </Box>
         </Dialog>
     )
-}
+};
 
 export const CyberpunkLoader = ({loading}) => {
     return (

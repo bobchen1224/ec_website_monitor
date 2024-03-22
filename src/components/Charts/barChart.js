@@ -1,3 +1,4 @@
+import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from "highcharts-react-official";
 
@@ -81,4 +82,4 @@ const BarChart = ({heightValue, titleValue, seriesValue}) => {
     )
 };
 
-export default BarChart;
+export default React.memo(BarChart);

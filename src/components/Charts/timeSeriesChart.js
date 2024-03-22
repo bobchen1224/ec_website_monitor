@@ -1,3 +1,4 @@
+import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from "highcharts-react-official";
 
@@ -73,4 +74,4 @@ const TimeSeriesChart = ({heightValue, titleValue, seriesValue, yaxisValue, xOff
     )
 };
 
-export default TimeSeriesChart;
+export default React.memo(TimeSeriesChart);

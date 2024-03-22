@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Box, Button, Card, IconButton, InputAdornment, TableCell, TableRow } from "@mui/material";
 import { CyberpunkLoader, DesignedFormInput, DesignedTable, PopupDialogue } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
@@ -218,11 +218,12 @@ const AdsMonitorTs = () => {
     const [selectCampaign, setSelectCampaign] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
 
-    const getAdsData = () => new Promise ((resolve, reject) => {
+    const getAdsData = useCallback(()=>
+    new Promise ((resolve, reject) => {
         setTimeout(()=>{
             resolve(setAdsCampaign(getAdsList()));
         },1500)
-    });
+    }),[]);
 
     const handleDiagOpen = (budgetValue: number, campaignName: string) => {
         setOpenDialog(true);
@@ -230,16 +231,16 @@ const AdsMonitorTs = () => {
         setSelectCampaign(campaignName);
     };
 
-    const handleDiagClose = () => {
+    const handleDiagClose = useCallback(()=>{
         setOpenDialog(false);
         setBudgetModify(0);
-    };
+    },[]);
 
-    const handleBudgetChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setBudgetModify(Number(event.target.value));
-    };
+    const handleBudgetChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
+        setBudgetModify(Number(event.target.value))
+    },[]);
 
-    const saveBudget = (adsList: TempAdsList, cpName: string, budgetData: number) => {
+    const saveBudget = useCallback((adsList: TempAdsList, cpName: string, budgetData: number)=>{
         const selectCpIndex: number = adsList.findIndex(f => f.name === cpName);
         Swal.fire({
             icon: 'question',
@@ -282,7 +283,7 @@ const AdsMonitorTs = () => {
                 setOpenDialog(false);
             };
         });
-    };
+    },[]);
 
     useEffect(()=>{
         setLoading(true);
