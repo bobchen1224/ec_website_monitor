@@ -1,13 +1,48 @@
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import { CyberpunkLoader, GeneralContentBox, MainDataBox } from "../../components/DesignedUI";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
 import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
 
+type TotalDataResponse = {
+    totalSales: number,
+    totalVisitors: number,
+    totalAddToCarts: number,
+    totalConversions: number,
+    sitePerformance: number,
+    siteSEO: number,
+};
+
+type TrafficDataResponse = Array<
+    {
+        timeTicks: number,
+        traffic: number,
+        bounceRate: number,
+    }
+>;
+
+type SalesDataResponse = Array<
+    {
+        timeTicks: number,
+        sales: number | null,
+        perSale: number | null,
+    }
+>;
+
+type SourceDataResponse = Array<
+    {
+        y: number, 
+        x: number, 
+        name: string, 
+        description: string | null, 
+        color: string,
+    }
+>;
+
 const getMinutesList = () => {
-    let tempList = [];
+    let tempList: TrafficDataResponse = [];
     for(let i = 0; i < 60; i++) {
         tempList[i] = {
             timeTicks: (moment().startOf('seconds').valueOf() - 60000) + (i * 1000),
@@ -19,7 +54,7 @@ const getMinutesList = () => {
 };
 
 const getHourList = () => {
-    let tempList = [];
+    let tempList: SalesDataResponse = [];
     const nowHourCheck = moment().startOf('hours').hours();
     for(let i = 0; i < 24; i++) {
         tempList[i] = {
@@ -31,8 +66,8 @@ const getHourList = () => {
     return tempList
 };
 
-const Dashboard = () => {
-    const [totalData, setTotalData] = useState(
+const DashboardTs = () => {
+    const [totalData, setTotalData] = useState<TotalDataResponse>(
         {
             totalSales: 0,
             totalVisitors: 0,
@@ -42,10 +77,10 @@ const Dashboard = () => {
             siteSEO: 0,
         }
     );
-    const [trafficData, setTrafficData] = useState([]);
-    const [salesData, setSalesData] = useState([]);
-    const [sourceData, setSourceData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [trafficData, setTrafficData] = useState<TrafficDataResponse>([]);
+    const [salesData, setSalesData] = useState<SalesDataResponse>([]);
+    const [sourceData, setSourceData] = useState<SourceDataResponse>([]);
+    const [loading, setLoading] = useState<Boolean>(false);
 
     const trafficSeries = useMemo(()=>{
         return [
@@ -77,7 +112,7 @@ const Dashboard = () => {
             },
         ];
     },[trafficData]);
-    
+
     const trafficYaxis = useMemo(()=>{
         return [
             {
@@ -118,7 +153,7 @@ const Dashboard = () => {
             },
         ];
     },[]);
-    
+
     const salesSeries = useMemo(()=>{
         return [
             {
@@ -216,11 +251,11 @@ const Dashboard = () => {
                     });
                     setSourceData([
                         {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
-                        {y: 13647, x: 2, name: 'Google Search', color: 'springgreen'},
-                        {y: 10274, x: 3, name: 'Facebook', color: 'deepskyblue'},
-                        {y: 9829, x: 4, name: 'Instagram', color: '#aaf'},
-                        {y: 6731, x: 5, name: 'Youtube', color: 'tomato'},
-                        {y: 4218, x: 6, name: 'Others', color: 'lightslategrey'},
+                        {y: 13647, x: 2, name: 'Google Search', description: null, color: 'springgreen'},
+                        {y: 10274, x: 3, name: 'Facebook', description: null, color: 'deepskyblue'},
+                        {y: 9829, x: 4, name: 'Instagram', description: null, color: '#aaf'},
+                        {y: 6731, x: 5, name: 'Youtube', description: null, color: 'tomato'},
+                        {y: 4218, x: 6, name: 'Others', description: null, color: 'lightslategrey'},
                     ]);
                 };
                 resolve(setRandomData());
@@ -254,8 +289,6 @@ const Dashboard = () => {
             clearInterval(tenSecTimer);
         };
     },[]);
-
-    // console.log('traffic', trafficData, 'total', totalData);
 
     return (
         <Grid container spacing={1}>
@@ -352,7 +385,7 @@ const Dashboard = () => {
                 </GeneralContentBox>
             </Grid>
         </Grid>
-    )
+    );
 };
 
-export default Dashboard;
+export default DashboardTs;

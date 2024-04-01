@@ -87,7 +87,7 @@ export const DesignedFormInput = styled(TextField)({
     },
 });
 
-export const MainDataBox = React.memo(({title, data, dataColor, startUnit, endUnit}) => {
+export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}) => {
     return (
         <Box sx={{backgroundColor: '#0C1427', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
             <h2 className={styles.dataTitle}>
@@ -100,15 +100,15 @@ export const MainDataBox = React.memo(({title, data, dataColor, startUnit, endUn
             </Box>
         </Box>
     )
-});
+};
 
-export const GeneralContentBox = React.memo(({children}) => {
+export const GeneralContentBox = ({children}) => {
     return (
         <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
             {children}
         </Box>
     )
-});
+};
 
 export const DesignedTable = ({maxHeightValue, minWidthValue, headerList, bodyData, setBodyData, DataRows, dataDirection, setDataDirection, handleOpenPop}) => {
 

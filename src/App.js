@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./components/Layout";
-import Dashboard from "./pages/Dashboard";
 import AdsMonitorTs from "./pages/AdsMonitorTs/index.tsx";
+import DashboardTs from "./pages/DashboardTs/index.tsx";
 
 const App = () => {
     return (
@@ -11,7 +11,7 @@ const App = () => {
                     index 
                     element={
                         <MainLayout>
-                            <Dashboard/>
+                            <DashboardTs/>
                         </MainLayout>
                     }
                 />
