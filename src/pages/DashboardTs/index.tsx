@@ -1,45 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import { CyberpunkLoader, GeneralContentBox, MainDataBox } from "../../components/DesignedUI";
+import { TotalDataResponse, TrafficDataResponse, SalesDataResponse, SourceDataResponse } from "../../constant/typeInterface";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
 import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
-
-type TotalDataResponse = {
-    totalSales: number,
-    totalVisitors: number,
-    totalAddToCarts: number,
-    totalConversions: number,
-    sitePerformance: number,
-    siteSEO: number,
-};
-
-type TrafficDataResponse = Array<
-    {
-        timeTicks: number,
-        traffic: number,
-        bounceRate: number,
-    }
->;
-
-type SalesDataResponse = Array<
-    {
-        timeTicks: number,
-        sales: number | null,
-        perSale: number | null,
-    }
->;
-
-type SourceDataResponse = Array<
-    {
-        y: number, 
-        x: number, 
-        name: string, 
-        description: string | null, 
-        color: string,
-    }
->;
 
 const getMinutesList = () => {
     let tempList: TrafficDataResponse = [];

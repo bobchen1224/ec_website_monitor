@@ -53,7 +53,7 @@ const tableSortSx = {
     '& .MuiTableSortLabel-icon': {
         color: 'pink !important',
     },
-}
+};
 
 export const DesignedFormInput = styled(TextField)({
     '& label': {

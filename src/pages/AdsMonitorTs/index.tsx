@@ -2,42 +2,10 @@ import React, { useCallback } from "react";
 import { Box, Button, Card, IconButton, InputAdornment, TableCell, TableRow } from "@mui/material";
 import { CyberpunkLoader, DesignedFormInput, DesignedTable, PopupDialogue } from "../../components/DesignedUI";
 import { useEffect, useState } from "react";
-import { adsTypeCheck } from "../../utils/constant";
+import { adsTypeCheck } from "../../utils/dataTransfer";
+import { AdsDataResponse, TempAdsList, SortParams, TableHeaderParams } from "../../constant/typeInterface";
 import { Edit } from "@mui/icons-material";
 import Swal from "sweetalert2";
-
-type AdsDataResponse = {
-    name: string,
-    type: string,
-    budget: number,
-    clicks: number,
-    impression: number,
-    clickRate: number | null,
-    costs: number | null,
-    conversions: number,
-    conversionsValue: number,
-    roas: number | null,
-};
-
-type TempAdsList = Array<AdsDataResponse>;
-
-type SortParams = {
-    label: string,
-    type: string,
-};
-
-type TableHeaderParams = Array<
-    {
-        level: string,
-        items: Array<
-            {
-                name: string,
-                label: string,
-                column: number,
-            }
-        >,
-    }
->;
 
 const bodySx = {
     padding: '1rem 0.5rem',
