@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import { CyberpunkLoader, GeneralContentBox, MainDataBox } from "../../components/DesignedUI";
 import { TotalDataResponse, TrafficDataResponse, SalesDataResponse, SourceDataResponse } from "../../constant/typeInterface";
@@ -48,114 +48,107 @@ const DashboardTs = () => {
     const [sourceData, setSourceData] = useState<SourceDataResponse>([]);
     const [loading, setLoading] = useState<Boolean>(false);
 
-    const trafficSeries = useMemo(()=>{
-        return [
-            {
-                name: '訪客人數',
-                type: 'line',
+    const trafficSeries = [
+        {
+            name: '訪客人數',
+            type: 'line',
+            color: 'aqua',
+            yAxis: 0,
+            shadow: {
                 color: 'aqua',
-                yAxis: 0,
-                shadow: {
-                    color: 'aqua',
-                    offsetX: 0,
-                    offsetY: 0,
-                    width: 7,
-                },
-                data: [...trafficData].map((v) => ({x: v.timeTicks, y: v.traffic }))
+                offsetX: 0,
+                offsetY: 0,
+                width: 7,
             },
-            {
-                name: '跳出率',
-                type: 'line',
+            data: [...trafficData].map((v) => ({x: v.timeTicks, y: v.traffic }))
+        },
+        {
+            name: '跳出率',
+            type: 'line',
+            color: 'gold',
+            yAxis: 1,
+            shadow: {
                 color: 'gold',
-                yAxis: 1,
-                shadow: {
-                    color: 'gold',
-                    offsetX: 0,
-                    offsetY: 0,
-                    width: 7,
-                },
-                data: [...trafficData].map((v) => ({x: v.timeTicks, y: v.bounceRate }))
+                offsetX: 0,
+                offsetY: 0,
+                width: 7,
             },
-        ];
-    },[trafficData]);
+            data: [...trafficData].map((v) => ({x: v.timeTicks, y: v.bounceRate }))
+        },
+    ];
 
-    const trafficYaxis = useMemo(()=>{
-        return [
-            {
-                title: {
-                    text: '訪客數',
-                    style: {
-                        color: '#aff'
-                    },
-                },                
-                labels: {
-                    format: '{value}',
-                    style: {
-                        color: '#aff',
-                    },
+    const trafficYaxis = [
+        {
+            title: {
+                text: '訪客數',
+                style: {
+                    color: '#aff'
                 },
-                gridLineColor: 'darkslategrey',
-                gridLineDashStyle: 'longdash',
+            },                
+            labels: {
+                format: '{value}',
+                style: {
+                    color: '#aff',
+                },
             },
-            {
-                title: {
-                    text: '跳出率',
-                    style: {
-                        color: '#ffa'
-                    },
+            gridLineColor: 'darkslategrey',
+            gridLineDashStyle: 'longdash',
+        },
+        {
+            title: {
+                text: '跳出率',
+                style: {
+                    color: '#ffa'
                 },
-                labels: {
-                    format: '{value} %',
-                    style: {
-                        color: '#ffa',
-                    },
-                },
-                gridLineColor: 'transparent',
-                base: 0,
-                min: 0,
-                max: 100,
-                opposite: true,
-                endOnTick: false,
             },
-        ];
-    },[]);
+            labels: {
+                format: '{value} %',
+                style: {
+                    color: '#ffa',
+                },
+            },
+            gridLineColor: 'transparent',
+            base: 0,
+            min: 0,
+            max: 100,
+            opposite: true,
+            endOnTick: false,
+        },
+    ];
 
-    const salesSeries = useMemo(()=>{
-        return [
-            {
-                name: '營收金額',
-                type: 'column',
+    const salesSeries = [
+        {
+            name: '營收金額',
+            type: 'column',
+            color: 'slateblue',
+            borderRadius: 3,
+            yAxis: 0,
+            shadow: {
                 color: 'slateblue',
-                borderRadius: 3,
-                yAxis: 0,
-                shadow: {
-                    color: 'slateblue',
-                    offsetX: 0,
-                    offsetY: 0,
-                    width: 7,
-                },
-                data: [...salesData].map((v) => ({x: v.timeTicks, y: v.sales }))
+                offsetX: 0,
+                offsetY: 0,
+                width: 7,
             },
-            {
-                name: '平均客單價',
-                type: 'line',
-                color: 'mediumspringgreen',
-                zIndex: 2,
-                lineWidth: 2,
-                yAxis: 1,
-                shadow: {
-                    color: 'black',
-                    offsetX: 0,
-                    offsetY: 0,
-                    width: 10,
-                },
-                data: [...salesData].map((v) => ({x: v.timeTicks, y: v.perSale }))
+            data: [...salesData].map((v) => ({x: v.timeTicks, y: v.sales }))
+        },
+        {
+            name: '平均客單價',
+            type: 'line',
+            color: 'mediumspringgreen',
+            zIndex: 2,
+            lineWidth: 2,
+            yAxis: 1,
+            shadow: {
+                color: 'black',
+                offsetX: 0,
+                offsetY: 0,
+                width: 10,
             },
-        ];
-    },[salesData]);
+            data: [...salesData].map((v) => ({x: v.timeTicks, y: v.perSale }))
+        },
+    ];
 
-    const salesYaxis = useMemo(()=>{
-        return [
+    const salesYaxis = [
             {
                 title: {
                     text: '營收',
@@ -190,44 +183,39 @@ const DashboardTs = () => {
                 opposite: true,
             },
         ];
-    },[]);
 
-    const sourceSeries = useMemo(()=>{
-        return [
-            {
-                type: 'bar',
-                data: sourceData,
-            }
-        ];
-    },[sourceData]);
+    const sourceSeries = [
+        {
+            type: 'bar',
+            data: sourceData,
+        }
+    ];
 
-    const getInitData = useCallback(()=>{
-        return new Promise((resolve, reject) => {
-            setTimeout(()=>{
-                const setRandomData = () => {
-                    setTrafficData(getMinutesList());
-                    setSalesData(getHourList());
-                    setTotalData({
-                        totalSales: 5137624,
-                        totalVisitors: 68511,
-                        totalAddToCarts: 13763,
-                        totalConversions: 3425,
-                        sitePerformance: 98,
-                        siteSEO: 100, 
-                    });
-                    setSourceData([
-                        {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
-                        {y: 13647, x: 2, name: 'Google Search', description: null, color: 'springgreen'},
-                        {y: 10274, x: 3, name: 'Facebook', description: null, color: 'deepskyblue'},
-                        {y: 9829, x: 4, name: 'Instagram', description: null, color: '#aaf'},
-                        {y: 6731, x: 5, name: 'Youtube', description: null, color: 'tomato'},
-                        {y: 4218, x: 6, name: 'Others', description: null, color: 'lightslategrey'},
-                    ]);
-                };
-                resolve(setRandomData());
-            }, 1500);
-        });
-    },[]);
+    const getInitData = () => new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            const setRandomData = () => {
+                setTrafficData(getMinutesList());
+                setSalesData(getHourList());
+                setTotalData({
+                    totalSales: 5137624,
+                    totalVisitors: 68511,
+                    totalAddToCarts: 13763,
+                    totalConversions: 3425,
+                    sitePerformance: 98,
+                    siteSEO: 100, 
+                });
+                setSourceData([
+                    {y: 23813, x: 1, name: 'Direct', description: 'kWp', color: 'orange'},
+                    {y: 13647, x: 2, name: 'Google Search', description: null, color: 'springgreen'},
+                    {y: 10274, x: 3, name: 'Facebook', description: null, color: 'deepskyblue'},
+                    {y: 9829, x: 4, name: 'Instagram', description: null, color: '#aaf'},
+                    {y: 6731, x: 5, name: 'Youtube', description: null, color: 'tomato'},
+                    {y: 4218, x: 6, name: 'Others', description: null, color: 'lightslategrey'},
+                ]);
+            };
+            resolve(setRandomData());
+        }, 1500);
+    });
 
     useEffect(()=>{
         setLoading(true);

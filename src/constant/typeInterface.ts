@@ -50,7 +50,7 @@ export type TempAdsList = Array<AdsDataResponse>;
 
 export type SortParams = {
     label: string,
-    type: string,
+    type: 'asc' | 'desc' | undefined,
 };
 
 export type TableHeaderParams = Array<
@@ -65,3 +65,8 @@ export type TableHeaderParams = Array<
         >,
     }
 >;
+
+export type DataRowsProps = {
+    openPop: (budget: number, name: string) => void,
+    data: AdsDataResponse
+}
