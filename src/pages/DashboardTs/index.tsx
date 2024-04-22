@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
-import { CyberpunkLoader, GeneralContentBox, MainDataBox } from "../../components/DesignedUI";
+import { GeneralContentBox, MainDataBox } from "../../components/DesignedUITs/index.tsx";
 import { TotalDataResponse, TrafficDataResponse, SalesDataResponse, SourceDataResponse } from "../../constant/typeInterface";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
 import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
+import { useAppDispatch } from "../../app/reducerHook.ts";
+import { disableLoading, enableLoading } from "../../models/dataHandle.ts";
 
 const getMinutesList = () => {
     let tempList: TrafficDataResponse = [];
@@ -33,6 +35,7 @@ const getHourList = () => {
 };
 
 const DashboardTs = () => {
+    const dispatch = useAppDispatch();
     const [totalData, setTotalData] = useState<TotalDataResponse>(
         {
             totalSales: 0,
@@ -46,7 +49,6 @@ const DashboardTs = () => {
     const [trafficData, setTrafficData] = useState<TrafficDataResponse>([]);
     const [salesData, setSalesData] = useState<SalesDataResponse>([]);
     const [sourceData, setSourceData] = useState<SourceDataResponse>([]);
-    const [loading, setLoading] = useState<Boolean>(false);
 
     const trafficSeries = [
         {
@@ -218,10 +220,10 @@ const DashboardTs = () => {
     });
 
     useEffect(()=>{
-        setLoading(true);
+        dispatch(enableLoading());
         getInitData()
         .finally(()=>{
-            setLoading(false);
+            dispatch(disableLoading());
         });
 
         const fiveSecTimer = setInterval(()=>{
@@ -246,7 +248,6 @@ const DashboardTs = () => {
 
     return (
         <Grid container spacing={1}>
-            <CyberpunkLoader loading={loading}/>
             <Grid item xs={12} md={6} lg={3}>
                 <MainDataBox
                     title='今日累計營收'

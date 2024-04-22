@@ -1,11 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { Box, Button, Card, IconButton, InputAdornment, TableCell, TableRow } from "@mui/material";
-import { CyberpunkLoader, PopupDialogue, DesignedFormInput, DesignedTable } from "../../components/DesignedUITs/index.tsx";
+import { PopupDialogue, DesignedFormInput, DesignedTable } from "../../components/DesignedUITs/index.tsx";
 import { useEffect, useState } from "react";
 import { adsTypeCheck } from "../../utils/dataTransfer";
 import { TempAdsList, SortParams, TableHeaderParams, DataRowsProps } from "../../constant/typeInterface";
 import { Edit } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { useAppDispatch } from "../../app/reducerHook.ts";
+import { enableLoading, disableLoading } from "../../models/dataHandle.ts";
 
 const bodySx = {
     padding: '1rem 0.5rem',
@@ -172,6 +174,7 @@ const AdsDataRows: FunctionComponent<DataRowsProps> = ({openPop, data}) => {
 };
 
 const AdsMonitorTs = () => {
+    const dispatch = useAppDispatch();
     const [adsCampaign, setAdsCampaign] = useState<TempAdsList>([]);
     const [tableDirection, setTableDirection] = useState<SortParams>(
         {
@@ -182,7 +185,6 @@ const AdsMonitorTs = () => {
     const [openDialog, setOpenDialog] = useState<boolean>(false);
     const [budgetModify, setBudgetModify] = useState<number>(0);
     const [selectCampaign, setSelectCampaign] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
 
     const getAdsData = () => new Promise ((resolve, reject) => {
         setTimeout(()=>{
@@ -251,17 +253,16 @@ const AdsMonitorTs = () => {
     };
 
     useEffect(()=>{
-        setLoading(true);
+        dispatch(enableLoading());
         getAdsData()
         .finally(()=>{
-            setLoading(false);
+            dispatch(disableLoading());
         });
     },[]);
 
     return (
         <Box sx={{boxSizing: 'border-box', paddingY: '0rem'}}>
             <Card sx={{border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px'}}>
-                <CyberpunkLoader loading={loading}/>
                 <DesignedTable 
                     maxHeightValue={820}
                     minWidthValue={1280}

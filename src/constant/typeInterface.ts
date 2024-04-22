@@ -69,4 +69,4 @@ export type TableHeaderParams = Array<
 export type DataRowsProps = {
     openPop: (budget: number, name: string) => void,
     data: AdsDataResponse
-}
+};
