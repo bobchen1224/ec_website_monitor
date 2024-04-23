@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
-import { GeneralContentBox, MainDataBox } from "../../components/DesignedUITs/index.tsx";
+import { GeneralContentBox, MainDataBox } from "../../components/DesignedUITs";
 import { TotalDataResponse, TrafficDataResponse, SalesDataResponse, SourceDataResponse } from "../../constant/typeInterface";
 import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
 import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
-import { useAppDispatch } from "../../app/reducerHook.ts";
-import { disableLoading, enableLoading } from "../../models/dataHandle.ts";
+import { useAppDispatch } from "../../app/reducerHook";
+import { disableLoading, enableLoading } from "../../models/dataHandle";
 
 const getMinutesList = () => {
     let tempList: TrafficDataResponse = [];

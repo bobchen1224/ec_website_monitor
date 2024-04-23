@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { Box, Button, Card, IconButton, InputAdornment, TableCell, TableRow } from "@mui/material";
-import { PopupDialogue, DesignedFormInput, DesignedTable } from "../../components/DesignedUITs/index.tsx";
+import { PopupDialogue, DesignedFormInput, DesignedTable } from "../../components/DesignedUITs";
 import { useEffect, useState } from "react";
 import { adsTypeCheck } from "../../utils/dataTransfer";
 import { TempAdsList, SortParams, TableHeaderParams, DataRowsProps } from "../../constant/typeInterface";
 import { Edit } from "@mui/icons-material";
 import Swal from "sweetalert2";
-import { useAppDispatch } from "../../app/reducerHook.ts";
-import { enableLoading, disableLoading } from "../../models/dataHandle.ts";
+import { useAppDispatch } from "../../app/reducerHook";
+import { enableLoading, disableLoading } from "../../models/dataHandle";
 
 const bodySx = {
     padding: '1rem 0.5rem',
@@ -229,14 +229,9 @@ const AdsMonitorTs = () => {
                 });
 
                 setTimeout(()=>{
-                    const newDataList = structuredClone(adsList);
-                    const dataListFix = newDataList.with(selectCpIndex,
-                        {
-                            ...newDataList[selectCpIndex],
-                            budget: budgetData,
-                        }
-                    );
-                    setAdsCampaign(dataListFix);
+                    let newDataList = structuredClone(adsList);
+                    newDataList[selectCpIndex].budget = budgetData;
+                    setAdsCampaign(newDataList);
                     Swal.close();
                     Swal.fire({
                         icon: 'success',

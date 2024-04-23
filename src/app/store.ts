@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import dataHandleReducer from "../models/dataHandle.ts";
+import dataHandleReducer from "../models/dataHandle";
 
 export const store = configureStore({
     reducer: {

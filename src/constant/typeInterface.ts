@@ -1,4 +1,4 @@
-export type TotalDataResponse = {
+export interface TotalDataResponse {
     totalSales: number,
     totalVisitors: number,
     totalAddToCarts: number,
@@ -33,7 +33,7 @@ export type SourceDataResponse = Array<
     }
 >;
 
-export type AdsDataResponse = {
+export interface AdsDataResponse {
     name: string,
     type: string,
     budget: number,
@@ -48,7 +48,7 @@ export type AdsDataResponse = {
 
 export type TempAdsList = Array<AdsDataResponse>;
 
-export type SortParams = {
+export interface SortParams {
     label: string,
     type: 'asc' | 'desc' | undefined,
 };
@@ -66,7 +66,7 @@ export type TableHeaderParams = Array<
     }
 >;
 
-export type DataRowsProps = {
+export interface DataRowsProps {
     openPop: (budget: number, name: string) => void,
     data: AdsDataResponse
 };
