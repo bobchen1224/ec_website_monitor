@@ -10,7 +10,7 @@ if(typeof Highcharts === 'object') {
     SolidGauge(Highcharts);
 };
 
-const GaugeChart = ({heightValue, dataValue, titleValue, paneColor, valueColor}) => {
+const GaugeChart = ({heightValue, dataValue, titleValue, paneColor, valueColor, bgColor}) => {
     const theme = useTheme();
     const smCheck = useMediaQuery(theme.breakpoints.up('sm'));
     const chartOptions = {
@@ -18,7 +18,7 @@ const GaugeChart = ({heightValue, dataValue, titleValue, paneColor, valueColor})
             type: 'solidgauge',
             animation: true,
             height: heightValue,
-            backgroundColor: '#0C1427',
+            backgroundColor: bgColor,
             borderRadius: 10,
         },
 

@@ -13,7 +13,7 @@ const MainLayout = ({children}) => {
             {smCheck ? <SlideMenu/> : <TopMenu/>}
             <CyberpunkLoader loading={loading}/>
             <Box sx={{
-                backgroundColor: '#070D19', 
+                backgroundColor: 'var(--baseBackgroundColor)', 
                 minHeight: '100vh', 
                 paddingLeft: smCheck ? '100px' : '0',
                 paddingRight: smCheck ? '20px' : '0', 

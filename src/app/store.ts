@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dataHandleReducer from "../models/dataHandle";
+import styleSwitchReducer from "../models/styleSwitch";
 
 export const store = configureStore({
     reducer: {
-        dataHandle: dataHandleReducer
+        dataHandle: dataHandleReducer,
+        styleSwitch: styleSwitchReducer,
     }
 });
 

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const TopMenu = () => {
     const navigate = useNavigate();
     return (
-        <AppBar position="static" sx={{backgroundColor: '#0E2545'}}>
+        <AppBar position="static" sx={{backgroundColor: 'var(--navbarBackgroundColor)'}}>
             <Toolbar>
                 <Button
                     variant='texted' 

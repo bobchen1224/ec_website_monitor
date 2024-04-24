@@ -91,7 +91,7 @@ export const DesignedFormInput = styled(TextField)({
 export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}: 
     {title: string, data: number, dataColor: string, startUnit: string, endUnit: string | null}) => {
     return (
-        <Box sx={{backgroundColor: '#0C1427', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
+        <Box sx={{backgroundColor: 'var(--mainComponentBackgroundColor)', color: 'lightcyan', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '3px solid var(--mainBorderColor)', boxShadow: '0 0 0.8rem var(--mainBoxShadowColor)', borderRadius: '10px', boxSizing: 'border-box', paddingY: '0.7rem'}}>
             <h2 className={styles.dataTitle}>
                 {title}
             </h2>
@@ -106,7 +106,7 @@ export const MainDataBox = ({title, data, dataColor, startUnit, endUnit}:
 
 export const GeneralContentBox = ({children}) => {
     return (
-        <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
+        <Box sx={{border: '3px solid var(--mainBorderColor)', borderRadius: '10px', boxShadow: '0 0 0.8rem var(--mainBoxShadowColor)', backgroundColor: 'var(--mainComponentBackgroundColor)'}}>
             {children}
         </Box>
     )

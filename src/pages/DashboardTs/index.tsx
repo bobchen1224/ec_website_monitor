@@ -6,7 +6,7 @@ import moment from "moment";
 import TimeSeriesChart from "../../components/Charts/timeSeriesChart";
 import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
-import { useAppDispatch } from "../../app/reducerHook";
+import { useAppDispatch, useAppSelector } from "../../app/reducerHook";
 import { disableLoading, enableLoading } from "../../models/dataHandle";
 
 const getMinutesList = () => {
@@ -35,6 +35,7 @@ const getHourList = () => {
 };
 
 const DashboardTs = () => {
+    const styleState = useAppSelector(state=>state.styleSwitch.mainBackgroundColor);
     const dispatch = useAppDispatch();
     const [totalData, setTotalData] = useState<TotalDataResponse>(
         {
@@ -285,15 +286,16 @@ const DashboardTs = () => {
                 />
             </Grid>
             <Grid item xs={12} md={6}>
-                <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
+                <GeneralContentBox>
                     <TimeSeriesChart 
                         heightValue='320px'
                         titleValue='進站流量與表現'
                         seriesValue={trafficSeries}
                         yaxisValue={trafficYaxis}
                         xOffsetValue={15}
+                        bgColor={styleState}
                     />
-                </Box>
+                </GeneralContentBox>
             </Grid>
             <Grid item xs={12} md={6}>
                 <GeneralContentBox>
@@ -301,19 +303,21 @@ const DashboardTs = () => {
                         heightValue='320px'
                         titleValue='流量來源'
                         seriesValue={sourceSeries}
+                        bgColor={styleState}
                     />
                 </GeneralContentBox>
             </Grid>
             <Grid item xs={12} md={6}>
-                <Box sx={{border: '3px solid aqua', borderRadius: '10px', boxShadow: '0 0 0.8rem aqua'}}>
+                <GeneralContentBox>
                     <TimeSeriesChart 
                         heightValue='320px'
                         titleValue='各時段營收狀況'
                         seriesValue={salesSeries}
                         yaxisValue={salesYaxis}
                         xOffsetValue={0}
+                        bgColor={styleState}
                     />
-                </Box>
+                </GeneralContentBox>
             </Grid>
             <Grid item xs={12} md={6}>
                 <GeneralContentBox>
@@ -325,6 +329,7 @@ const DashboardTs = () => {
                                 titleValue='網站效能'
                                 valueColor='#afa'
                                 paneColor={['#43e97b', '#38f9d7']}
+                                bgColor={styleState}
                             />
                         </Box>
                         <Box sx={{width: '50%', borderRadius: '10px'}}>
@@ -334,6 +339,7 @@ const DashboardTs = () => {
                                 titleValue='SEO表現'
                                 valueColor='#aff'
                                 paneColor={['#4facfe', '#00f2fe']}
+                                bgColor={styleState}
                             />
                         </Box>
                     </Box>

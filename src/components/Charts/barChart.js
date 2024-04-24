@@ -4,13 +4,13 @@ import HighchartsReact from "highcharts-react-official";
 
 Highcharts.setOptions({ lang: { thousandsSep: ',' } });
 
-const BarChart = ({heightValue, titleValue, seriesValue}) => {
+const BarChart = ({heightValue, titleValue, seriesValue, bgColor}) => {
     const chartOptions = {
         chart: {
             zoomType: 'xy',
             height: heightValue,
             animation: true,
-            backgroundColor: '#0C1427',
+            backgroundColor: bgColor,
             borderRadius: 10,
         },
 

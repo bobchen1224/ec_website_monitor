@@ -17,7 +17,7 @@ body::-webkit-scrollbar-track-piece {
 
 body::-webkit-scrollbar-thumb {
     border-radius: 6px;
-    background-color:aqua;
+    background-color: var(--mainBorderColor);
     border: 2px solid #545454;
 }
 

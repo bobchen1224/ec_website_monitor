@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --baseBackgroundColor: #070D19;
+  --navbarBackgroundColor: #0E2545;
+  --mainComponentBackgroundColor: #0C1427;
+  --mainTextColor: lightcyan;
+  --mainTextHoverColor: aqua;
+  --mainTextShadowHoverColor: aqua;
+  --mainBorderColor: aqua;
+  --mainBoxShadowColor: aqua;
+}
