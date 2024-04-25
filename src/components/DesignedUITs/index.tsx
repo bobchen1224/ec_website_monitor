@@ -6,8 +6,8 @@ import styles from './designedUITs.module.css';
 const mainHeadSx = {
     color: 'lightyellow', 
     textShadow: '0 0 0.2rem orange', 
-    borderBottom: '1px solid aqua', 
-    borderRight: '1px solid aqua', 
+    borderBottom: '1px solid var(--mainBorderColor)', 
+    borderRight: '1px solid var(--mainBorderColor)', 
     background: 'black', 
     fontSize: '1.2rem', 
     fontWeight: 'bolder'
@@ -16,7 +16,7 @@ const mainHeadSx = {
 const mainHeadSxLast = {
     color: 'lightyellow', 
     textShadow: '0 0 0.2rem orange', 
-    borderBottom: '1px solid aqua', 
+    borderBottom: '1px solid var(--mainBorderColor)', 
     borderRight: '0px', 
     background: 'black', 
     fontSize: '1.2rem', 
@@ -25,8 +25,8 @@ const mainHeadSxLast = {
 
 const subHeadSx = {
     color: 'aquamarine', 
-    borderBottom: '1px solid aqua', 
-    borderRight: '1px solid aqua', 
+    borderBottom: '1px solid var(--mainBorderColor)', 
+    borderRight: '1px solid var(--mainBorderColor)', 
     background: '#111111', 
     fontSize: '0.9rem', 
     fontWeight: 'bolder',
@@ -34,7 +34,7 @@ const subHeadSx = {
 
 const subHeadSxLast = {
     color: 'aquamarine', 
-    borderBottom: '1px solid aqua', 
+    borderBottom: '1px solid var(--mainBorderColor)', 
     borderRight: '0px', 
     background: '#111111', 
     fontSize: '0.9rem', 

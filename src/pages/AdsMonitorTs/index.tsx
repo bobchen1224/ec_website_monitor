@@ -257,7 +257,7 @@ const AdsMonitorTs = () => {
 
     return (
         <Box sx={{boxSizing: 'border-box', paddingY: '0rem'}}>
-            <Card sx={{border: '3px solid aqua', boxShadow: '0 0 0.8rem aqua', borderRadius: '10px'}}>
+            <Card sx={{border: '3px solid var(--mainBorderColor)', boxShadow: '0 0 0.8rem var(--mainBoxShadowColor)', borderRadius: '10px'}}>
                 <DesignedTable 
                     maxHeightValue={820}
                     minWidthValue={1280}

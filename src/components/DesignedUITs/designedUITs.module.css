@@ -65,8 +65,8 @@
 
 .tableHeadStyle{
   color: aquamarine; 
-  border-bottom: 1px solid aqua; 
-  border-right: 1px solid aqua; 
+  border-bottom: 1px solid var(--mainBorderColor); 
+  border-right: 1px solid var(--mainBorderColor); 
   background: #111111; 
   font-size: 0.9rem; 
   font-weight: bolder;
@@ -124,7 +124,7 @@
 
 .tableContainerStyle::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background: aqua;
+  background: var(--mainBorderColor);
   border: 2px solid #666666;
 }
 
