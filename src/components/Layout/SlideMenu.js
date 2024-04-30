@@ -40,6 +40,7 @@ const DrawerHeader = styled('div')(({theme})=>({
 const DesignedDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         width: drawerWidth,
+        zIndex: (theme) => theme.drawer.zIndex + 1,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
@@ -68,8 +69,7 @@ const SlideMenu = () => {
             open={open}
             PaperProps={{
                 sx: {
-                  backgroundColor: "var(--navbarBackgroundColor)",
-                  zIndex: 1040,
+                    backgroundColor: "var(--navbarBackgroundColor)"
                 }
             }}
             >

@@ -241,7 +241,7 @@ export const CyberpunkLoader = ({loading}: {loading: boolean}) => {
     return (
         <Backdrop
             open={loading}
-            sx={{backgroundColor: 'rgba(0, 0, 0, 0.85)', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{backgroundColor: 'rgba(0, 0, 0, 0.85)', zIndex: (theme) => theme.zIndex.drawer + 50 }}
         >
             <div className={styles.loader}>
                 <svg className={styles.circleFW} viewBox="0 0 1000 1000">
