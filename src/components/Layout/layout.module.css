@@ -38,3 +38,8 @@ body::-webkit-scrollbar-corner {
     color: aqua;
     text-shadow: 0 0 0.3rem aqua;
 }
+
+.logoText {
+    color: lightcyan;
+    text-align: center;
+}

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/reducerHook.ts";
 import { switchBgColor } from "../../models/styleSwitch.ts";
 import { routesConfig } from "../../routesConfig.js";
+import styles from './layout.module.css';
 
 const drawerWidth = 240;
 
@@ -100,6 +101,11 @@ const SlideMenu = () => {
             }}
             >
             <DrawerHeader>
+                {open ? 
+                    <h3 className={styles.logoText}>{'模擬監控平台'}</h3> 
+                    : 
+                    <></>
+                }
                 <IconButton sx={{color: 'aqua'}} onClick={()=>{handleMenuOpen()}}>
                     {open ? <ChevronLeft/> : <ChevronRight/>}
                 </IconButton>

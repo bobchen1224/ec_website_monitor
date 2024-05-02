@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/reducerHook";
 import { switchBgColor } from "../../models/styleSwitch";
 import { routesConfig } from "../../routesConfig";
-import styles from './layout.module.css'
 import { useState } from "react";
+import styles from './layout.module.css';
 
 const TopMenu = () => {
     const dispatch = useAppDispatch()
@@ -25,7 +25,7 @@ const TopMenu = () => {
     return (
         <AppBar position="static" sx={{backgroundColor: 'var(--navbarBackgroundColor)'}}>
             <Toolbar>
-                <Box>
+                <Box sx={{width: '33%'}}>
                     <Button
                         variant="texted"
                         className={styles.slideButton}
@@ -61,6 +61,11 @@ const TopMenu = () => {
                             {'切換介面風格'}
                         </MenuItem>
                     </DesignedMenu>
+                </Box>
+                <Box sx={{width: '33%'}}>
+                    <h4 className={styles.logoText}>
+                        {'模擬監控平台'}
+                    </h4>
                 </Box>
             </Toolbar>
         </AppBar>

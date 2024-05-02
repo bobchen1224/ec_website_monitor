@@ -60,8 +60,8 @@ export const DesignedMenu = styled(Menu)(()=>({
     "& 	.MuiMenu-paper": {
         color: "lightcyan",
         background: '#000000cc',
-        border: '3px solid aqua',
-        boxShadow: '0 0 0.8rem aqua',
+        border: '3px solid var(--mainBorderColor)',
+        boxShadow: '0 0 0.8rem var(--mainBoxShadowColor)',
     },
     "& 	.MuiMenuItem-root": {
         "&:hover": {
