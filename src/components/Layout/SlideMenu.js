@@ -1,9 +1,10 @@
-import { AdsClick, ChevronLeft, ChevronRight, ColorLens, Dashboard } from "@mui/icons-material";
+import { ChevronLeft, ChevronRight, ColorLens } from "@mui/icons-material";
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/reducerHook.ts";
 import { switchBgColor } from "../../models/styleSwitch.ts";
+import { routesConfig } from "../../routesConfig.js";
 
 const drawerWidth = 240;
 
@@ -55,6 +56,31 @@ const DesignedDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'o
     }),
 );
 
+const SlideListItem = ({name, clickFunc, startIcon}) => {
+    return (
+        <ListItem  
+            disablePadding 
+            sx={{ 
+                display: 'block', 
+                color: 'lightcyan',
+                '&:hover': {
+                    color: 'aqua',
+                    "& .MuiListItemIcon-root": {
+                        color: "aqua"
+                    }
+                },
+            }}
+        >
+            <ListItemButton onClick={clickFunc}>
+                <ListItemIcon sx={{color: 'lightcyan'}}>
+                    {startIcon}
+                </ListItemIcon>
+                <ListItemText primary={name}/>
+            </ListItemButton>
+        </ListItem>
+    );
+};
+
 const SlideMenu = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -80,66 +106,22 @@ const SlideMenu = () => {
             </DrawerHeader>
             <Divider>
                 <List>
-                    <ListItem  
-                        disablePadding 
-                        sx={{ 
-                            display: 'block', 
-                            color: 'lightcyan',
-                            '&:hover': {
-                                color: 'aqua',
-                                "& .MuiListItemIcon-root": {
-                                    color: "aqua"
-                                }
-                            },
-                        }}
-                    >
-                        <ListItemButton onClick={()=>{navigate('/')}}>
-                            <ListItemIcon sx={{color: 'lightcyan'}}>
-                                <Dashboard/>
-                            </ListItemIcon>
-                            <ListItemText primary="營運狀態總覽"/>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem  
-                        disablePadding 
-                        sx={{ 
-                            display: 'block', 
-                            color: 'lightcyan',
-                            '&:hover': {
-                                color: 'aqua',
-                                "& .MuiListItemIcon-root": {
-                                    color: "aqua"
-                                }
-                            },
-                        }}
-                    >
-                        <ListItemButton onClick={()=>{navigate('/adsMonitor')}}>
-                            <ListItemIcon sx={{color: 'lightcyan'}}>
-                                <AdsClick/>
-                            </ListItemIcon>
-                            <ListItemText primary="廣告活動監控"/>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem  
-                        disablePadding 
-                        sx={{ 
-                            display: 'block', 
-                            color: 'lightcyan',
-                            '&:hover': {
-                                color: 'aqua',
-                                "& .MuiListItemIcon-root": {
-                                    color: "aqua"
-                                }
-                            },
-                        }}
-                    >
-                        <ListItemButton onClick={()=>{dispatch(switchBgColor())}}>
-                            <ListItemIcon sx={{color: 'lightcyan'}}>
-                                <ColorLens/>
-                            </ListItemIcon>
-                            <ListItemText primary="切換介面風格"/>
-                        </ListItemButton>
-                    </ListItem>
+                    {routesConfig.map((v)=>{
+                        const MatchIcon = v.icon;
+                        return (
+                            <SlideListItem
+                                key={v.name}
+                                name={v.name}
+                                clickFunc={()=>{navigate(v.route)}}
+                                startIcon={<MatchIcon/>}
+                            />
+                        );
+                    })}
+                    <SlideListItem
+                        name='切換介面風格'
+                        clickFunc={()=>{dispatch(switchBgColor())}}
+                        startIcon={<ColorLens/>}
+                    />
                 </List>
             </Divider>
         </DesignedDrawer>

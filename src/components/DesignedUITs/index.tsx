@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Backdrop, Box, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, styled } from "@mui/material";
+import { Backdrop, Box, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, styled, Menu } from "@mui/material";
 import { DataRowsProps, SortParams, TableHeaderParams, TempAdsList } from "../../constant/typeInterface";
 import styles from './designedUITs.module.css';
 
@@ -55,6 +55,22 @@ const tableSortSx = {
         color: 'pink !important',
     },
 };
+
+export const DesignedMenu = styled(Menu)(()=>({
+    "& 	.MuiMenu-paper": {
+        color: "lightcyan",
+        background: '#000000cc',
+        border: '3px solid aqua',
+        boxShadow: '0 0 0.8rem aqua',
+    },
+    "& 	.MuiMenuItem-root": {
+        "&:hover": {
+            textShadow: "0 0 0.5rem deepskyblue",
+            fontWeight: "bolder",
+            color: 'aqua',
+        },
+    }
+}));
 
 export const DesignedFormInput = styled(TextField)({
     '& label': {
