@@ -8,6 +8,7 @@ import BarChart from "../../components/Charts/barChart";
 import GaugeChart from "../../components/Charts/gaugeCharts";
 import { useAppDispatch, useAppSelector } from "../../app/reducerHook";
 import { disableLoading, enableLoading } from "../../models/dataHandle";
+import { useTranslation } from "react-i18next";
 
 const getMinutesList = () => {
     let tempList: TrafficDataResponse = [];
@@ -35,6 +36,7 @@ const getHourList = () => {
 };
 
 const DashboardTs = () => {
+    const { t } = useTranslation();
     const styleState = useAppSelector(state=>state.styleSwitch.mainBackgroundColor);
     const dispatch = useAppDispatch();
     const [totalData, setTotalData] = useState<TotalDataResponse>(
@@ -152,40 +154,40 @@ const DashboardTs = () => {
     ];
 
     const salesYaxis = [
-            {
-                title: {
-                    text: '營收',
-                    style: {
-                        color: '#ecf'
-                    },
-                },                
-                labels: {
-                    format: '$ {value:,f}',
-                    style: {
-                        color: '#ecf',
-                    },
+        {
+            title: {
+                text: '營收',
+                style: {
+                    color: '#ecf'
                 },
-                gridLineColor: 'darkslategrey',
-                gridLineDashStyle: 'longdash',
+            },                
+            labels: {
+                format: '$ {value:,f}',
+                style: {
+                    color: '#ecf',
+                },
             },
-            {
-                title: {
-                    text: '客單價',
-                    style: {
-                        color: '#afa'
-                    },
+            gridLineColor: 'darkslategrey',
+            gridLineDashStyle: 'longdash',
+        },
+        {
+            title: {
+                text: '客單價',
+                style: {
+                    color: '#afa'
                 },
-                labels: {
-                    format: '$ {value:,f}',
-                    style: {
-                        color: '#afa',
-                    },
-                },
-                gridLineColor: 'darkslategrey',
-                gridLineDashStyle: 'longdash',
-                opposite: true,
             },
-        ];
+            labels: {
+                format: '$ {value:,f}',
+                style: {
+                    color: '#afa',
+                },
+            },
+            gridLineColor: 'darkslategrey',
+            gridLineDashStyle: 'longdash',
+            opposite: true,
+        },
+    ];
 
     const sourceSeries = [
         {
@@ -251,7 +253,7 @@ const DashboardTs = () => {
         <Grid container spacing={1}>
             <Grid item xs={12} md={6} lg={3}>
                 <MainDataBox
-                    title='今日累計營收'
+                    title={t("todayTotalSales")}
                     data={totalData.totalSales}
                     dataColor='springgreen'
                     startUnit='$'

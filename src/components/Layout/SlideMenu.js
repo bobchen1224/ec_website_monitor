@@ -1,16 +1,19 @@
-import { ChevronLeft, ChevronRight, ColorLens } from "@mui/icons-material";
+import { ChevronLeft, ChevronRight, ColorLens, Language } from "@mui/icons-material";
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/reducerHook.ts";
 import { switchBgColor } from "../../models/styleSwitch.ts";
 import { routesConfig } from "../../routesConfig.js";
+import { useTranslation } from "react-i18next";
 import styles from './layout.module.css';
 
-const drawerWidth = 240;
+const drawerMinWidth = 240;
+const drawerMaxWidth = 270;
 
 const openedMixin = (theme) => ({
-    width: drawerWidth,
+    maxWidth: drawerMaxWidth,
+    minWidth: drawerMinWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -41,7 +44,8 @@ const DrawerHeader = styled('div')(({theme})=>({
 
 const DesignedDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
-        width: drawerWidth,
+        maxWidth: drawerMaxWidth,
+        minWidth: drawerMinWidth,
         zIndex: (theme) => theme.drawer.zIndex + 1,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -85,10 +89,24 @@ const SlideListItem = ({name, clickFunc, startIcon}) => {
 const SlideMenu = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
+    const langState = sessionStorage.getItem('lang state') || '';
+    
     const [open, setOpen] = useState(false);
+    const [languageState, setLanguageState] = useState(langState || 'zhTW');
+    
     const handleMenuOpen = () => {
         setOpen(prev => !prev);
     };
+    const handleLauguageChange = (lng) => {
+        i18n.changeLanguage(lng)
+        sessionStorage.setItem('lang state', lng);
+        setLanguageState(lng);
+    };
+
+    useEffect(()=>{
+        handleLauguageChange(languageState);
+    },[]);
 
     return (
         <DesignedDrawer 
@@ -102,7 +120,7 @@ const SlideMenu = () => {
             >
             <DrawerHeader>
                 {open ? 
-                    <h3 className={styles.logoText}>{'模擬監控平台'}</h3> 
+                    <h3 className={styles.logoText}>{t("projectNameLogo")}</h3> 
                     : 
                     <></>
                 }
@@ -117,16 +135,23 @@ const SlideMenu = () => {
                         return (
                             <SlideListItem
                                 key={v.name}
-                                name={v.name}
+                                name={t(`${v.menuTitle}`)}
                                 clickFunc={()=>{navigate(v.route)}}
                                 startIcon={<MatchIcon/>}
                             />
                         );
                     })}
                     <SlideListItem
-                        name='切換介面風格'
+                        name={t("changeStyle")}
                         clickFunc={()=>{dispatch(switchBgColor())}}
                         startIcon={<ColorLens/>}
+                    />
+                    <SlideListItem
+                        name={t("changeLanguage")}
+                        clickFunc={()=>{
+                            handleLauguageChange(languageState === 'zhTW' ? 'en' : 'zhTW');
+                        }}
+                        startIcon={<Language/>}
                     />
                 </List>
             </Divider>
